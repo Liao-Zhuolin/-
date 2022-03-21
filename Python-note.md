@@ -123,21 +123,27 @@ move = (n,'A','B','C')
 
 * L[0:3]表示，从索引0开始取，直到索引3为止，但不包括索引3。
 * 可以通过切片轻松取出某一段数列。比如前10个数：
+```
 >>> L[:10]
 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-
+```
 * 后10个数：
+```
 >>> L[-10:]
 [90, 91, 92, 93, 94, 95, 96, 97, 98, 99]
-
+```
 * 所有数，每5个取一个：
+```
 >>> L[::5]
 [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95]
-
+```
 * 甚至什么都不写，只写[:]就可以原样复制一个list：
+```
 >>> L[:]
 [0, 1, 2, 3, ..., 99]
+```
 * Python strip() 方法用于移除字符串头尾指定的字符（默认为空格或换行符）或字符序列。
+```
 #!/usr/bin/python # -\*- coding: UTF-8 -\*- 
 str = "00000003210Runoob01230000000"; 
 print str.strip( '0' ); 
@@ -145,54 +151,62 @@ print str.strip( '0' ); 
 str2 = " Runoob "; 
 \# 去除首尾空格 
 print str2.strip();
-
+```
 * 默认情况下，dict迭代的是key。如果要迭代value，可以用for value in d.values()，如果要同时迭代key和value，可以用for k, v in d.items()。
 * Python内置的enumerate函数可以把一个list变成索引-元素对，这样就可以在for循环中同时迭代索引和元素本身：
+```
 >>> for i, value in enumerate(['A', 'B', 'C']):
 ...     print(i, value)
 ...
 0 A
 1 B
 2 C
-
+```
 * 上面的for循环里，同时引用了两个变量，在Python里是很常见的，比如下面的代码：
+```
 >>> for x, y in [(1, 1), (2, 4), (3, 9)]:
 ...     print(x, y)
 ...
 1 12 43 9
-
+```
 * 列表生成式则可以用一行语句代替循环生成上面的list：
+```
 >>> [x * x for x in range(1, 11)]
 [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
-
+```
 * 把一个list中所有的字符串变成小写：
+```
 >>> L = ['Hello', 'World', 'IBM', 'Apple']
 >>> [s.lower() for s in L]
 ['hello', 'world', 'ibm', 'apple']
-
+```
 * 在一个列表生成式中，for前面的if ... else是表达式，而for后面的if是过滤条件，不能带else。
 内建的isinstance函数可以判断一个变量是不是字符串：
+```
 >>> x = 'abc'>>> y = 123>>> isinstance(x, str)
 True>>> isinstance(y, str)
 False
-
+```
 * 在Python中，这种一边循环一边计算的机制，称为生成器：generator。
 第一种方法很简单，只要把一个列表生成式的[]改成()，就创建了一个generator：
+```
 >>> L = [x * x for x in range(10)]
 >>> L
 [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
 >>> g = (x * x for x in range(10))
 >>> g
 <generator object <genexpr> at 0x1022ef630>
-
+```
 * 如果要一个一个打印出来，可以通过next()函数获得generator的下一个返回值：
 * 正确的方法是使用for循环，因为generator也是可迭代对象：
 * 赋值同时进行，可用于交换两个变量的值
+```
 a=3
 b=5
 a,b=b,a
-
+```
 * 如果一个函数定义中包含yield关键字，那么这个函数就不再是一个普通函数，而是一个generator函数，调用一个generator函数将返回一个generator： 普通函数是顺序执行，遇到return语句或者最后一行函数语句就返回。而变成generator的函数，在每次调用next()的时候执行，遇到yield语句返回，再次执行时从上次返回的yield语句处继续执行。
+```
 def fib(max):
     n, a, b = 0, 0, 1
     while n < max:
@@ -200,7 +214,7 @@ def fib(max):
         a, b = b, a + b
         n = n + 1
     return 'done'
-
+```
 * 凡是可作用于for循环的对象都是Iterable类型；
 凡是可作用于next()函数的对象都是Iterator类型，它们表示一个惰性计算的序列；
 * 集合数据类型如list、dict、str等是Iterable但不是Iterator，不过可以通过iter()函数获得一个Iterator对象。
@@ -210,58 +224,66 @@ Python的for循环本质上就是通过不断调用next()函数实现的
 * 函数本身也可以赋值给变量，即：变量可以指向函数。
 一个函数就可以接收另一个函数作为参数，这种函数就称之为高阶函数
 * map()函数接收两个参数，一个是函数，一个是Iterable，map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回。
-
+```
 >>> def f(x):...     return x * x
 ...
 >>> r = map(f, [1, 2, 3, 4, 5, 6, 7, 8, 9])
 >>> list(r)
 [1, 4, 9, 16, 25, 36, 49, 64, 81]
-
+```
 * map()作为高阶函数，事实上它把运算规则抽象了，因此，我们不但可以计算简单的f(x)=x2，还可以计算任意复杂的函数，比如，把这个list所有数字转为字符串：
+```
 >>> list(map(str, [1, 2, 3, 4, 5, 6, 7, 8, 9]))
 ['1', '2', '3', '4', '5', '6', '7', '8', '9']
-
+```
 * reduce把一个函数作用在一个序列[x1, x2, x3, ...]上，这个函数必须接收两个参数，reduce把结果继续和序列的下一个元素做累积计算，其效果就是：
+```
 reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)
-
 >>> from functools import reduce
 >>> def add(x, y):...     return x + y
 ...
 >>> reduce(add, [1, 3, 5, 7, 9])
 25
-
+```
 * 但是如果要把序列[1, 3, 5, 7, 9]变换成整数13579，reduce就可以派上用场：
+```
 >>> from functools import reduce
 >>> def fn(x, y):...     return x * 10 + y
 ...
 >>> reduce(fn, [1, 3, 5, 7, 9])
 13579
-
+```
 * lambda函数
+```
 list1 = [1, 2, 3, 4, 5]
 list2 = map(lambda x: x**2, list1)
 list(list2)
-
+```
 * filter()把传入的函数依次作用于每个元素，然后根据返回值是True还是False决定保留还是丢弃该元素。 例如，在一个list中，删掉偶数，只保留奇数，可以这么写：
+```
 def is_odd(n):
     return n % 2 == 1
 list(filter(is_odd, [1, 2, 4, 5, 6, 9, 10, 15]))
 \# 结果: [1, 5, 9, 15]
-
+```
 * Python内置的sorted()函数就可以对list进行排序：
+```
 >>> sorted([36, 5, -12, 9, -21])
 [-21, -12, 5, 9, 36]
-
+```
 sorted()函数也是一个高阶函数，它还可以接收一个key函数来实现自定义的排序，例如按绝对值大小排序：
+```
 >>> sorted([36, 5, -12, 9, -21], key=abs)
 [5, 9, -12, -21, 36]
-
+```
 * 要进行反向排序，不必改动key函数，可以传入第三个参数reverse=True：
+```
 >>> sorted(['bob', 'about', 'Zoo', 'Credit'], key=str.lower, reverse=True)
 ['Zoo', 'Credit', 'bob', 'about']
-
+```
 * 高阶函数除了可以接受函数作为参数外，还可以把函数作为结果值返回
 * 返回闭包时牢记一点：返回函数不要引用任何循环变量，或者后续会发生变化的变量。
+```
 def count():
     fs = []
     for i in range(1, 4):
@@ -269,8 +291,6 @@ def count():
              return i*i
         fs.append(f)
     return fs
-
-
 f1, f2, f3 = count()
 >>> f1()
 9
@@ -278,28 +298,31 @@ f1, f2, f3 = count()
 9
 >>> f3()
 9
-
+```
 * 一个函数可以返回一个计算结果，也可以返回一个函数。
 返回一个函数时，牢记该函数并未执行，返回函数中不要引用任何可能会变化的变量。
 在Python中，对匿名函数提供了有限支持。还是以map()函数为例，计算f(x)=x2时，除了定义一个f(x)的函数外，还可以直接传入匿名函数：
-
+```
 >>> list(map(lambda x: x * x, [1, 2, 3, 4, 5, 6, 7, 8, 9]))
 [1, 4, 9, 16, 25, 36, 49, 64, 81]
-
+```
 * 匿名函数也是一个函数对象，也可以把匿名函数赋值给一个变量，再利用变量来调用该函数：
+```
 >>> f = lambda x: x * x
 >>> f
 <function <lambda> at 0x101c6ef28>
 >>> f(5)
 25
-
+```
 * 函数对象有一个__name__属性，可以拿到函数的名字：
+```
 >>> now.__name__
 'now'>>> f.__name__
 'now'
-
+```
 * 在代码运行期间动态增加功能的方式，称之为“装饰器”（Decorator）， 本质上，decorator就是一个返回函数的高阶函数
 借助Python的@语法，把decorator置于函数的定义处：
+```
 def log(func):
     def wrapper(*args, **kw):
         print('call %s():' % func.__name__)
@@ -308,29 +331,33 @@ def log(func):
 
 @logdef now():
     print('2015-3-25')
-
+```
 * 调用now()函数，不仅会运行now()函数本身，还会在运行now()函数前打印一行日志：
+```
 >>> now()
 call now():
 2015-3-25
-
+```
 * 把@log放到now()函数的定义处，相当于执行了语句： now = log(now)
 * decorator可以增强函数的功能，定义起来虽然有点复杂，但使用起来非常灵活和方便。
 * functools.partial就是帮助我们创建一个偏函数的，不需要我们自己定义int2()，可以直接使用下面的代码创建一个新的函数int2：
+```
 >>> import functools
 >>> int2 = functools.partial(int, base=2)
 >>> int2('1000000')
 64>>> int2('1010101')
 85
-
+```
 * 简单总结functools.partial的作用就是，把一个函数的某些参数给固定住（也就是设置默认值），返回一个新的函数，调用这个新函数会更简单。
 * 当函数的参数个数太多，需要简化时，使用functools.partial可以创建一个新的函数，这个新函数可以固定住原函数的部分参数，从而在调用时更简单。
 * 在Python中，一个.py文件就称之为一个模块（Module）
 假设我们的abc和xyz这两个模块名字与其他模块冲突了，于是我们可以通过包来组织模块，避免冲突。方法是选择一个顶层包名，比如mycompany，按照如下目录存放：
+```
 mycompany
 ├─ _\_init_\_.py
 ├─ abc.py
 └─ xyz.py
+```
 * 引入了包以后，只要顶层的包名不与别人冲突，那所有模块都不会与别人冲突。现在，abc.py模块的名字就变成了mycompany.abc，类似的，xyz.py的模块名变成了mycompany.xyz。
 * 每一个包目录下面都会有一个__init__.py的文件，这个文件是必须存在的，否则，Python就把这个目录当成普通目录，而不是一个包。__init__.py可以是空文件，也可以有Python代码，因为__init__.py本身就是一个模块，而它的模块名就是mycompany。
 * 自己创建模块时要注意命名，不能和Python自带的模块名称冲突。例如，系统自带了sys模块，自己的模块就不可命名为sys.py，否则将无法导入系统自带的sys模块。
@@ -341,55 +368,61 @@ mycompany
 * 类似_xxx和__xxx这样的函数或变量就是非公开的（private），不应该被直接引用，比如_abc，__abc等；
 * Mac或Linux上有可能并存Python 3.x和Python 2.x，因此对应的pip命令是pip3。
 * 默认情况下，Python解释器会搜索当前目录、所有已安装的内置模块和第三方模块，搜索路径存放在sys模块的path变量中：
+```
 >>> import sys
 >>> sys.path
 ['','/Library/Frameworks/Python.framework/Versions/3.6/lib/python36.zip', '/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6', ..., '/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages']
-
+```
 
 * 修改sys.path，添加要搜索的目录：
+```
 >>> import sys
 >>> sys.path.append('/Users/michael/my_py_scripts')
-
+```
 * 面向对象编程——Object Oriented Programming，简称OOP，是一种程序设计思想。OOP把对象作为程序的基本单元，一个对象包含了数据和操作数据的函数。
 面向过程把函数继续切分为子函数，即把大块函数通过切割成小块函数来降低系统的复杂度。
 而面向对象的程序设计把计算机程序视为一组对象的集合，而每个对象都可以接收其他对象发过来的消息，并处理这些消息，计算机程序的执行就是一系列消息在各个对象之间传递。
 * 在Python中，所有数据类型都可以视为对象，当然也可以自定义对象。自定义的对象数据类型就是面向对象中的类（Class）的概念。
 * 如果采用面向对象的程序设计思想，我们首选思考的不是程序的执行流程，而是Student这种数据类型应该被视为一个对象，这个对象拥有name和score这两个属性（Property）。如果要打印一个学生的成绩，首先必须创建出这个学生对应的对象，然后，给对象发一个print_score消息，让对象自己把自己的数据打印出来。
+```
 class Student(object):
     def __init__(self, name, score):
         self.name = name
         self.score = score
     def print_score(self):
         print('%s: %s' % (self.name, self.score))
-
+```
 * 给对象发消息实际上就是调用对象对应的关联函数，我们称之为对象的方法（Method）。
 * 数据封装、继承和多态是面向对象的三大特点
 * class后面紧接着是类名，即Student，类名通常是大写开头的单词，紧接着是(object)，表示该类是从哪个类继承下来的，继承的概念我们后面再讲，通常，如果没有合适的继承类，就使用object类，这是所有类最终都会继承的类。
 创建实例是通过类名+()实现的
 * 通过定义一个特殊的__init__方法，在创建实例的时候，就把name，score等属性绑上去：
 * 如果要让内部属性不被外部访问，可以把属性的名称前加上两个下划线__，在Python中，实例的变量名如果以__开头，就变成了一个私有变量（private），只有内部可以访问，外部不能访问，所以，我们把Student类改一改：
+```
 class Student(object):
     def __init__(self, name, score):
         self.__name = name
         self.__score = score
     def print_score(self):
         print('%s: %s' % (self.__name, self.__score))
-
+```
 * 在Python中，变量名类似__xxx__的，也就是以双下划线开头，并且以双下划线结尾的，是特殊变量，特殊变量是可以直接访问的，不是private变量，所以，不能用__name__、__score__这样的变量名。
 * 在OOP程序设计中，当我们定义一个class的时候，可以从某个现有的class继承，新的class称为子类（Subclass），而被继承的class称为基类、父类或超类（Base class、Super class）。
 * 当子类和父类都存在相同的run()方法时，我们说，子类的run()覆盖了父类的run()，在代码运行的时候，总是会调用子类的run()。这样，我们就获得了继承的另一个好处：多态。
 * 在继承关系中，如果一个实例的数据类型是某个子类，那它的数据类型也可以被看做是父类。但是，反过来就不行：
 * 如果要获得一个对象的所有属性和方法，可以使用dir()函数，它返回一个包含字符串的list，比如，获得一个str对象的所有属性和方法：
+```
 >>> dir('ABC')
 ['__add__', '__class__',..., '__subclasshook__', 'capitalize', 'casefold',..., 'zfill']
-
+```
 * 在Python中，如果你调用len()函数试图获取一个对象的长度，实际上，在len()函数内部，它自动去调用该对象的__len__()方法，所以，下面的代码是等价的：
-
+```
 >>> len('ABC')
 3>>> 'ABC'.__len__()
 3
+```
 * 仅仅把属性和方法列出来是不够的，配合getattr()、setattr()以及hasattr()，我们可以直接操作一个对象的状态：
-
+```
 >>> class MyObject(object):...
      def __init__(self):...
          self.x = 9...
@@ -407,29 +440,31 @@ False
 >>> hasattr(obj, 'y') # 有属性'y'吗？
 True
 >>> getattr(obj, 'y') # 获取属性'y'19>>> obj.y # 获取属性'y'19
-
+```
 * 实例属性属于各个实例所有，互不干扰；
 * 类属性属于类所有，所有实例共享一个属性；
 * 不要对实例属性和类属性使用相同的名字，否则将产生难以发现的错误。
+```
 class Student(object):
     count = 0
     def __init__(self, name):
         self.name = name
         Student.count += 1
-
+```
 * 为了达到限制的目的，Python允许在定义class的时候，定义一个特殊的__slots__变量，来限制该class实例能添加的属性：
 * 通过多重继承，一个子类就可以同时获得多个父类的所有功能。
 * @unique装饰器可以帮助我们检查保证没有重复值。
 metaclass是Python中非常具有魔术性的对象，它可以改变类创建时的行为。
 * finally如果有，则一定会被执行（可以没有finally语句）
 凡是用print()来辅助查看的地方，都可以用断言（assert）来替代：
+```
 def foo(s):
     n = int(s)
     assert n != 0, 'n is zero!'
     return 10 / n
 def main():
     foo('0')
-
+```
 
 * 不过，启动Python解释器时可以用-O参数来关闭assert：
 注意：断言的开关“-O”是英文大写字母O，不是数字0。
@@ -441,20 +476,22 @@ Input Stream就是数据从外面（磁盘、网络）流进内存，Output Stre
 * 如果文件打开成功，接下来，调用read()方法可以一次读取文件的全部内容，Python把内容读到内存，用一个str对象表示：
 * 最后一步是调用close()方法关闭文件。文件使用完毕后必须关闭，因为文件对象会占用操作系统的资源，并且操作系统同一时间能打开的文件数量也是有限的：
 * Python引入了with语句来自动帮我们调用close()方法：
+```
 with open('/path/to/file', 'r') as f:
     print(f.read())
-
+```
 * 调用readline()可以每次读取一行内容，调用readlines()一次读取所有内容并按行返回list。
 * 要读取二进制文件，比如图片、视频等等，用'rb'模式打开文件即可：
+```
 >>> f = open('/Users/michael/gbk.txt', 'r', encoding='gbk')
 >>> f.read()
 '测试'
-
+```
 
 
 * 写文件和读文件是一样的，唯一区别是调用open()函数时，传入标识符'w'或者'wb'表示写文本文件或写二进制文件：
 * StringIO顾名思义就是在内存中读写str。
-
+```
 >>> from io import StringIO
 >>> f = StringIO()
 >>> f.write('hello')
@@ -462,27 +499,28 @@ with open('/path/to/file', 'r') as f:
 1>>> f.write('world!')
 6>>> print(f.getvalue())
 hello world!
-
+```
 
 
 * getvalue()方法用于获得写入后的str。
 * StringIO和BytesIO是在内存中操作str和bytes的方法，使得和读写文件具有一致的接口。
 * Python内置的os模块也可以直接调用操作系统提供的接口函数。
 * 如果是posix，说明系统是Linux、Unix或Mac OS X，如果是nt，就是Windows系统。
-
+```
 >>> import os
 >>> os.name # 操作系统类型'posix'
-
+```
 
 
 * 在操作系统中定义的环境变量，全部保存在os.environ这个变量中，可以直接查看：
-
+```
 >>> os.environ
 environ({'VERSIONER_PYTHON_PREFER_32_BIT': 'no', 'TERM_PROGRAM_VERSION': '326', 'LOGNAME': 'michael', 'USER': 'michael', 'PATH': '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/local/mysql/bin', ...})
-
+```
 
 
 * 要获取某个环境变量的值，可以调用os.environ.get('key')：
+```
 >>> os.environ.get('PATH')
 '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/local/mysql/bin'>>> os.environ.get('x', 'default')
 'default'
@@ -490,18 +528,19 @@ environ({'VERSIONER_PYTHON_PREFER_32_BIT': 'no', 'TERM_PROGRAM_VERSION': '326', 
 '/Users/michael'# 在某个目录下创建一个新目录，首先把新目录的完整路径表示出来:>>> os.path.join('/Users/michael', 'testdir')
 '/Users/michael/testdir'# 然后创建一个目录:>>> os.mkdir('/Users/michael/testdir')
 \# 删掉一个目录:>>> os.rmdir('/Users/michael/testdir')
-
+```
 * 文件操作使用下面的函数。假定当前目录下有一个test.txt文件：
 
 \# 对文件重命名:>>> os.rename('test.txt', 'test.py')
 \# 删掉文件:>>> os.remove('test.py')
 
 * 列出当前目录下的所有目录，只需要一行代码：
+```
 >>> [x for x in os.listdir('.') if os.path.isdir(x)]
 ['.lein', '.local', '.m2', '.npm', '.ssh', '.Trash', '.vim', 'Applications', 'Desktop', ...]
 >>> [x for x in os.listdir('.') if os.path.isfile(x) and os.path.splitext(x)[1]=='.py']
 ['apis.py', 'config.py', 'models.py', 'pymonitor.py', 'test_db.py', 'urls.py', 'wsgiapp.py']
-
+```
 
 
 * Python的os模块封装了操作系统的目录和文件操作，要注意这些函数有的在os模块中，有的在os.path模块中。
@@ -514,6 +553,7 @@ Python既支持多进程，又支持多线程
 * 多进程和多线程的程序涉及到同步、数据共享的问题，编写起来更复杂。
 * 普通的函数调用，调用一次，返回一次，但是fork()调用一次，返回两次，因为操作系统自动把当前进程（称为父进程）复制了一份（称为子进程），然后，分别在父进程和子进程内返回。
 * 子进程永远返回0，而父进程返回子进程的ID。
+```
 import os
 print('Process (%s) start...' % os.getpid())
 \# Only works on Unix/Linux/Mac:
@@ -522,20 +562,17 @@ if pid == 0:
     print('I am child process (%s) and my parent is %s.' % (os.getpid(), os.getppid()))
 else:
     print('I (%s) just created a child process (%s).' % (os.getpid(), pid))
-
+```
 
 
 * 创建子进程时，只需要传入一个执行函数和函数的参数，创建一个Process实例，用start()方法启动，这样创建进程比fork()还要简单。
 * join()方法可以等待子进程结束后再继续往下运行，通常用于进程间的同步。
+```
 from multiprocessing import Process
 import os
-
-
 \# 子进程要执行的代码
 def run_proc(name):
     print('Run child process %s (%s)...' % (name, os.getpid()))
-
-
 if __name__=='__main__':
     print('Parent process %s.' % os.getpid())
     p = Process(target=run_proc, args=('test',))
@@ -543,7 +580,7 @@ if __name__=='__main__':
     p.start()
     p.join()
     print('Child process end.')
-
+```
 * 如果要启动大量的子进程，可以用进程池的方式批量创建子进程：
 * Process之间肯定是需要通信的，操作系统提供了很多机制来实现进程间的通信。Python的multiprocessing模块包装了底层的机制，提供了Queue、Pipes等多种方式来交换数据。
 * 进程是由若干线程组成的，一个进程至少有一个线程。
@@ -569,6 +606,7 @@ A|B可以匹配A或B，所以(P|p)ython可以匹配'Python'或者'python'。
 * 可能注意到了，py也可以匹配'python'，但是加上^py$就变成了整行匹配，就只能匹配'py'了。
 * Python提供re模块，包含所有正则表达式的功能。由于Python的字符串本身也用\转义，所以要特别注意：
 * 使用Python的r前缀，就不用考虑转义的问题了：
+```
 s = r'ABC\-001' 
 \# Python的字符串# 对应的正则表达式字符串不变：
 \# 'ABC\-001'
@@ -577,20 +615,23 @@ s = r'ABC\-001' 
 <_sre.SRE_Match object; span=(0, 9), match='010-12345'>
 >>> re.match(r'^\d{3}\-\d{3,8}$', '010 12345')
 >>>
-
+```
 * atch()方法判断是否匹配，如果匹配成功，返回一个Match对象，否则返回None。常见的判断方法就是：
+```
 test = '用户输入的字符串'if re.match(r'正则表达式', test):
     print('ok')
 else:
     print('failed')
-
+```
 * 正常的切分代码 无法识别连续的空格，用正则表达式试试：
+```
 >>> re.split(r'\s+', 'a b   c')
 ['a', 'b', 'c']
 >>> re.split(r'[\s\,\;]+', 'a,b;; c  d')
 ['a', 'b', 'c', 'd']
-
+```
 * 注意到group(0)永远是与整个正则表达式相匹配的字符串，group(1)、group(2)……表示第1、2、……个子串。
+```
 >>> m = re.match(r'^(\d{3})-(\d{3,8})$', '010-12345')
 >>> m
 <_sre.SRE_Match object; span=(0, 9), match='010-12345'>
@@ -598,41 +639,45 @@ else:
 '010-12345'>>> m.group(1)
 '010'>>> m.group(2)
 '12345'
-
+```
 * 最后需要特别指出的是，正则匹配默认是贪婪匹配，也就是匹配尽可能多的字符。举例如下，匹配出数字后面的0：
+```
 >>> re.match(r'^(\d+)(0*)$', '102300').groups()
 ('102300', '')
-
-* 由于\d+采用贪婪匹配，直接把后面的0全部匹配了，结果0*只能匹配空字符串了。
+```
+* 由于\d+采用贪婪匹配，直接把后面的0全部匹配了，结果0\*只能匹配空字符串了。
 必须让\d+采用非贪婪匹配（也就是尽可能少匹配），才能把后面的0匹配出来，加个?就可以让\d+采用非贪婪匹配：
+```
 >>> re.match(r'^(\d+?)(0*)$', '102300').groups()
 ('1023', '00')
-
+```
 
 * 当我们在Python中使用正则表达式时，re模块内部会干两件事情：
 * 编译正则表达式，如果正则表达式的字符串本身不合法，会报错；
 * 用编译后的正则表达式去匹配字符串。
 * 如果一个正则表达式要重复使用几千次，出于效率的考虑，我们可以预编译该正则表达式，接下来重复使用时就不需要编译这个步骤了，直接匹配：
+```
 >>> import re
 \# 编译:>>> re_telephone = re.compile(r'^(\d{3})-(\d{3,8})$')
 \# 使用：>>> re_telephone.match('010-12345').groups()
 ('010', '12345')
 >>> re_telephone.match('010-8086').groups()
 ('010', '8086')
-
+```
 
 * Python之所以自称“batteries included”，就是因为内置了许多非常有用的模块，无需额外安装和配置，即可直接使用。
 * datetime表示的时间需要时区信息才能确定一个特定的时间，否则只能视为本地时间。
 * 如果要存储datetime，最佳方法是将其转换为timestamp再存储，因为timestamp的值与时区完全无关。
 * namedtuple是一个函数，它用来创建一个自定义的tuple对象，并且规定了tuple元素的个数，并可以用属性而不是索引来引用tuple的某个元素。
 * deque是为了高效实现插入和删除操作的双向列表，适合用于队列和栈：
+```
 >>> from collections import deque
 >>> q = deque(['a', 'b', 'c'])
 >>> q.append('x')
 >>> q.appendleft('y')
 >>> q
 deque(['y', 'a', 'b', 'c', 'x'])
-
+```
 * collections模块提供了一些有用的集合类，可以根据需要选用。
 * Base64是一种任意二进制到文本字符串的编码方法，常用于在URL、Cookie、网页中传输少量二进制数据。
 摘要算法又称哈希算法、散列算法。它通过一个函数，把任意长度的数据转换为一个长度固定的数据串（通常用16进制的字符串表示）。
@@ -641,6 +686,7 @@ deque(['y', 'a', 'b', 'c', 'x'])
 * 基本上，所有的第三方模块都会在PyPI - the Python Package Index上注册，只要找到对应的模块名字，即可用pip安装。
 * PIL提供了操作图像的强大功能，可以通过简单的代码完成复杂的图像处理。
 * PIL的ImageDraw提供了一系列绘图方法，让我们可以直接绘图。比如要生成字母验证码图片：
+```
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import random
 \# 随机字母:def rndChar():
@@ -665,18 +711,20 @@ draw.text((60 * t + 10, 10), rndChar(), font=font, fill=rndColor2())
 \# 模糊:
 image = image.filter(ImageFilter.BLUR)
 image.save('code.jpg', 'jpeg')
-
+```
 * 用requests获取URL资源
 * 当我们拿到一个bytes时，就可以对其检测编码。用chardet检测编码，只需要一行代码：
+```
 >>> chardet.detect(b'Hello, world!')
 {'encoding': 'ascii', 'confidence': 1.0, 'language': ''}
-
+```
 * 检测出的编码是ascii，注意到还有个confidence字段，表示检测的概率是1.0（即100%）。
 * 我们来试试检测GBK编码的中文：
+```
 >>> data = '离离原上草，一岁一枯荣'.encode('gbk')
 >>> chardet.detect(data)
 {'encoding': 'GB2312', 'confidence': 0.7407407407407407, 'language': 'Chinese'}
-
+```
 * psutil = process and system utilities 它不仅可以通过一两行代码实现系统监控，还可以跨平台使用，支持Linux／UNIX／OSX／Windows等，是系统管理员和运维小伙伴不可或缺的必备模块。
 * virtualenv为应用提供了隔离的Python运行环境，解决了不同应用间多版本的冲突问题。
 * Python内置的Tkinter可以满足基本的GUI程序的要求，如果是非常复杂的GUI程序，建议用操作系统原生支持的语言和库来编写。
@@ -713,14 +761,14 @@ image.save('code.jpg', 'jpeg')
 * 无论多么复杂的Web应用程序，入口都是一个WSGI处理函数。HTTP请求的所有输入信息都可以通过environ获得，HTTP响应的输出都可以通过start_response()加上函数返回值作为Body。
 * 同步IO模型的代码是无法实现异步IO模型的。
 * 异步IO模型需要一个消息循环，在消息循环中，主线程不断地重复“读取消息-处理消息”这一过程：
+```
 loop = get_event_loop()
 while True:
 event = loop.get_event()
 process_event(event)
-
+```
 
 * 协程，又称微线程，纤程。英文名Coroutine。
 最大的优势就是协程极高的执行效率。因为子程序切换不是线程切换，而是由程序自身控制，因此，没有线程切换的开销，和多线程比，线程数量越多，协程的性能优势就越明显。
 * Python对协程的支持是通过generator实现的。
 * asyncio是Python 3.4版本引入的标准库，直接内置了对异步IO的支持。
-
