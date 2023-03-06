@@ -1,7 +1,7 @@
 ## 小白的算法成长路
 
 ## Python
-- [Python教程 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/1016959663602400)
+- [廖雪峰Python教程](https://www.liaoxuefeng.com/wiki/1016959663602400)
 - [我的笔记](https://github.com/Liao-Zhuolin/ML-Note/blob/main/Python-%E7%AC%94%E8%AE%B0.md)
 
 ## 算法与数据结构
